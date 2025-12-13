@@ -1,0 +1,114 @@
+// 1. Configuración de conexión
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// 2. Definición de Roles (Enum)
+enum Role {
+  client
+  admin
+}
+
+// 3. Modelos (Tablas)
+
+model User {
+  id           Int        @id @default(autoincrement())
+  username     String     @unique
+  email        String     @unique
+  passwordHash String     @map("password_hash") // En DB se llamará password_hash
+  role         Role       @default(client)
+  avatarUrl    String?    @map("avatar_url")
+  createdAt    DateTime   @default(now()) @map("created_at")
+  
+  // Relaciones
+  playlists    Playlist[] // Un usuario tiene muchas playlists
+
+  @@map("users") // Nombre real de la tabla en Postgres
+}
+
+model Artist {
+  id        Int      @id @default(autoincrement())
+  name      String
+  bio       String?
+  imageUrl  String?  @map("image_url")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  // Relaciones
+  albums    Album[]
+
+  @@map("artists")
+}
+
+model Album {
+  id            Int      @id @default(autoincrement())
+  title         String
+  releaseYear   Int?     @map("release_year")
+  coverImageUrl String?  @map("cover_image_url")
+  createdAt     DateTime @default(now()) @map("created_at")
+
+  // Foreign Key
+  artistId      Int      @map("artist_id")
+  artist        Artist   @relation(fields: [artistId], references: [id], onDelete: Cascade)
+
+  // Relaciones
+  songs         Song[]
+
+  @@map("albums")
+}
+
+model Song {
+  id          Int      @id @default(autoincrement())
+  title       String
+  duration    Int      // Segundos
+  fileUrl     String   @map("file_url")
+  trackNumber Int?     @map("track_number")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  // Foreign Key
+  albumId     Int      @map("album_id")
+  album       Album    @relation(fields: [albumId], references: [id], onDelete: Cascade)
+
+  // Relación Muchos a Muchos Explicita (Para saber cuándo se agregó a la playlist)
+  playlists   PlaylistSong[]
+
+  @@map("songs")
+}
+
+model Playlist {
+  id            Int      @id @default(autoincrement())
+  title         String
+  coverImageUrl String?  @map("cover_image_url")
+  isPublic      Boolean  @default(false) @map("is_public")
+  createdAt     DateTime @default(now()) @map("created_at")
+
+  // Foreign Key
+  userId        Int      @map("user_id")
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Relación
+  songs         PlaylistSong[]
+
+  @@map("playlists")
+}
+
+// Tabla Intermedia Explicita (Muchos a Muchos)
+model PlaylistSong {
+  id        Int      @id @default(autoincrement())
+  addedAt   DateTime @default(now()) @map("added_at")
+
+  // Relaciones
+  playlistId Int      @map("playlist_id")
+  playlist   Playlist @relation(fields: [playlistId], references: [id], onDelete: Cascade)
+  
+  songId     Int      @map("song_id")
+  song       Song     @relation(fields: [songId], references: [id], onDelete: Cascade)
+
+  // Evita canciones duplicadas en la misma playlist
+  @@unique([playlistId, songId])
+  @@map("playlist_songs")
+}

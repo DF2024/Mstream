@@ -50,7 +50,15 @@ const authService = {
             { expiresIn: '7d' }
         )
 
-        return { token, user: { id: user.id, username: user.username, role: user.role } }
+        return { 
+            token, 
+            user: { 
+                id: user.id, 
+                username: user.username,
+                email: user.email, 
+                role: user.role,
+                avatarUrl: user.avatarUrl
+            } }
     }
 }
 

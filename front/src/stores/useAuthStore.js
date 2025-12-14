@@ -1,42 +1,53 @@
 import { create } from 'zustand';
 import api from '../api/axios';
 
+// Función segura para leer del localStorage
+const getStoredUser = () => {
+    try {
+        const storedUser = localStorage.getItem('user');
+        if (storedUser && storedUser !== "undefined") {
+            return JSON.parse(storedUser);
+        }
+        return null;
+    } catch (error) {
+        return null;
+    }
+};
+
 export const useAuthStore = create((set) => ({
-    user: JSON.parse(localStorage.getItem('user')) || null,
+    user: getStoredUser(),
     token: localStorage.getItem('token') || null,
 
-    // Función de Login: Llama al backend y guarda datos
     login: async (email, password) => {
         try {
             const response = await api.post('/auth/login', { email, password });
             
-            // Asumiendo que tu backend devuelve: { token, user: {...} }
-            const { token, user } = response.data; // <--- OJO AQUÍ, AJUSTAR SEGÚN TU BACKEND
-
-            // Si tu backend devuelve { token, user } directamente, úsalo así.
-            // Si devuelve { token } y tienes que decodificar, avísame.
+            const { token, user } = response.data;
+            
+            // Validación: Si el backend no envía user, lanzamos error manual
+            if (!user || !token) {
+                throw new Error("Respuesta del servidor incompleta");
+            }
             
             localStorage.setItem('token', token);
             localStorage.setItem('user', JSON.stringify(user));
 
             set({ token, user });
-            return true; // Éxito
+            return true;
         } catch (error) {
             console.error("Login error:", error.response?.data || error.message);
-            return false; // Fallo
+            return false;
         }
     },
-
-    // Función de Logout
+    
     logout: () => {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
         set({ token: null, user: null });
     },
-    
-    // Helper para saber si es admin
+
     isAdmin: () => {
-        const user = JSON.parse(localStorage.getItem('user'));
+        const user = getStoredUser();
         return user?.role === 'admin';
     }
 }));

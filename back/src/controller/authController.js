@@ -30,13 +30,13 @@ const authController = {
         try {
 
             const { email, password } = req.body
+
+
             const token = await authService.loginUser(email, password)
 
-            return res.json({ token })
+            return res.json(token)
         } catch (error) {
-
             return res.status(400).json({ error: error.message })
-            
         }
     }
 }

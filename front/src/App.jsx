@@ -20,7 +20,7 @@ function App() {
               <Route path="/login" element={<LoginPage />} />
 
               {/* Ruta Protegida (Home) */}
-              <Route path="/" element={
+              <Route path="/api" element={
                   <ProtectedRoute>
                       <div className="text-white p-10">
                           <h1>¡Bienvenido! Has iniciado sesión correctamente.</h1>

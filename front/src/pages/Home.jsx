@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
 import api from '../api/axios';
+import { usePlayerStore } from '../stores/usePlayerStore'; // 1. Importar Store
 
 const HomePage = () => {
     const [songs, setSongs] = useState([]);
+    const { setSong } = usePlayerStore(); // 2. Sacar la función setSong
 
     useEffect(() => {
         const fetchSongs = async () => {
             try {
                 const response = await api.get('/songs');
-                // Asumiendo que tu backend devuelve { success: true, data: [...] }
                 setSongs(response.data.data); 
             } catch (error) {
                 console.error("Error cargando canciones:", error);
@@ -28,17 +29,22 @@ const HomePage = () => {
                         key={song.id} 
                         className="bg-[#181818] p-4 rounded-lg hover:bg-[#282828] transition duration-300 group cursor-pointer"
                     >
-                        {/* Imagen (Portada del álbum) */}
                         <div className="relative mb-4">
                             <img 
                                 src={song.album?.coverImageUrl || "https://via.placeholder.com/150"} 
                                 alt={song.title} 
                                 className="w-full aspect-square object-cover rounded-md shadow-lg"
                             />
-                            {/* Botón Play flotante (Solo visible en hover) */}
-                            <div className="absolute bottom-2 right-2 bg-spotify-green rounded-full p-3 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300 shadow-xl">
+                            {/* 3. Agregar el evento onClick al botón de Play */}
+                            <button 
+                                onClick={() =>{
+                                    console.log("1. Click en canción:", song);
+                                    setSong(song)
+                                }} 
+                                className="absolute bottom-2 right-2 bg-spotify-green rounded-full p-3 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300 shadow-xl hover:scale-105"
+                            >
                                 <span className="text-black text-xl">▶</span>
-                            </div>
+                            </button>
                         </div>
 
                         <h3 className="font-bold truncate text-white">{song.title}</h3>

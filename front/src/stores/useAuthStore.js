@@ -39,7 +39,20 @@ export const useAuthStore = create((set) => ({
             return false;
         }
     },
-    
+
+    register: async(username, email, password) => {
+        try {
+            await api.post('/auth/register', {username, email, password})
+
+            // Si no da error, retornamos true.
+            // Nota: No hacemos login automático aquí, redirigiremos al usuario para que inicie sesión.
+            return true
+        } catch (error) {
+            console.error("Register error:", error.response?.data || error.message)
+            return false
+        }
+    },
+
     logout: () => {
         localStorage.removeItem('token');
         localStorage.removeItem('user');

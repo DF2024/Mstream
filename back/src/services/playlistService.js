@@ -80,6 +80,15 @@ const playlistService = {
         });
     },
 
+    checkOwnership: async (playlistId, userId) => {
+        const playlist = await prisma.playlist.findUnique({
+            where: { id: parseInt(playlistId) }
+        });
+        if (!playlist) throw new Error('Playlist no encontrada');
+        
+        // Compara el ID del dueño con el ID del usuario actual
+        return playlist.userId === parseInt(userId);
+    }
 };
 
 export default playlistService;

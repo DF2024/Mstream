@@ -12,7 +12,7 @@ const PlaylistPage = () => {
     useEffect(() => {
         const fetchPlaylist = async () => {
             try {
-                const res = await api.get(`/playlist/${id}`);
+                const res = await api.get(`/playlists/${id}`);
                 setPlaylist(res.data.data);
             } catch (error) {
                 console.error("Error al cargar playlist:", error);

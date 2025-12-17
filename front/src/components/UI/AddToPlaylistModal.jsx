@@ -10,8 +10,18 @@ const AddToPlaylistModal = ({ song, onClose }) => {
     useEffect(() => {
         const fetchPlaylists = async () => {
             try {
+
+                console.log("1. Solicitando playlist...")
                 const res = await api.get('/playlists');
-                setPlaylists(res.data.data);
+                console.log("2. Respuesta del servidor:", res.data)
+
+
+                if(res.data && res.data.data){
+                    setPlaylists(res.data.data);
+                } else {
+                    console.error("Estructura de respuesta inesperada", res.data)
+                }
+
             } catch (error) {
                 console.error("Error cargando playlists:", error);
             }

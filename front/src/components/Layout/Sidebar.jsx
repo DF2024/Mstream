@@ -14,7 +14,7 @@ const Sidebar = () => {
     useEffect(() => {
         const fetchPlaylists = async () => {
             try {
-                const res = await api.get('/playlist');
+                const res = await api.get('/playlists');
                 setPlaylist(res.data.data);
             } catch (error) {
                 console.error("Error cargando playlist:", error);

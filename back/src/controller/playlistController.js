@@ -49,6 +49,11 @@ const playlistController = {
             const { songId } = req.body;           // ID de la canción en el JSON
             const userId = req.user.id;
 
+            console.log("--- INTENTO DE AGREGAR CANCIÓN ---");
+            console.log("Usuario:", userId);
+            console.log("Playlist ID:", playlistId);
+            console.log("Canción ID:", songId);
+
             // 1. Seguridad: ¿Eres el dueño de la playlist?
             const isOwner = await playlistService.checkOwnership(playlistId, userId);
             if (!isOwner) return res.status(403).json({ error: "No tienes permiso para editar esta playlist" });

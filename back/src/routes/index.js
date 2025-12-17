@@ -13,7 +13,7 @@ const router = Router()
 router.use('/users', usersRouter)
 router.use('/auth', authRouter)
 router.use('/artists', artistsRoutes)
-router.use('/playlist', playlistRoutes)
+router.use('/playlists', playlistRoutes)
 router.use('/search', searchRoutes);
 router.use('/songs', songsRoutes)
 router.use('/albums', albumsRoutes)

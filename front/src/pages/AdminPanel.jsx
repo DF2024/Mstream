@@ -136,7 +136,7 @@ const AdminPage = () => {
                         <label className="block mb-2 text-sm text-gray-400">Foto del Artista</label>
                         <input type="file" name="image" accept="image/*" className="w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:bg-white file:text-black hover:file:bg-gray-200" />
                     </div>
-                    <button disabled={loading} className="bg-spotify-green text-black font-bold py-3 px-8 rounded-full hover:scale-105 transition disabled:opacity-50">
+                    <button disabled={loading} className="bg-green-500 text-black font-bold py-3 px-8 rounded-full hover:scale-105 transition disabled:opacity-50">
                         {loading ? 'Guardando...' : 'Guardar Artista'}
                     </button>
                 </form>
@@ -160,7 +160,7 @@ const AdminPage = () => {
                         <label className="block mb-2 text-sm text-gray-400">Portada del Álbum</label>
                         <input type="file" name="image" accept="image/*" className="w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:bg-white file:text-black hover:file:bg-gray-200" />
                     </div>
-                    <button disabled={loading} className="bg-spotify-green text-black font-bold py-3 px-8 rounded-full hover:scale-105 transition disabled:opacity-50">
+                    <button disabled={loading} className="bg-green-500 text-black font-bold py-3 px-8 rounded-full hover:scale-105 transition disabled:opacity-50">
                         {loading ? 'Creando...' : 'Crear Álbum'}
                     </button>
                 </form>
@@ -187,7 +187,7 @@ const AdminPage = () => {
                         <label className="block mb-2 text-sm text-gray-400">Archivo de Audio (MP3)</label>
                         <input type="file" name="audioFile" accept="audio/*" required className="w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:bg-white file:text-black hover:file:bg-gray-200" />
                     </div>
-                    <button disabled={loading} className="bg-spotify-green text-black font-bold py-3 px-8 rounded-full hover:scale-105 transition disabled:opacity-50">
+                    <button disabled={loading} className="bg-green-500 text-black font-bold py-3 px-8 rounded-full hover:scale-105 transition disabled:opacity-50">
                         {loading ? 'Subiendo...' : 'Subir Canción'}
                     </button>
                 </form>

@@ -93,7 +93,7 @@ const RegisterPage = () => {
 
                     <button 
                         type="submit"
-                        className="bg-spotify-green text-black font-bold rounded-full py-3 mt-4 hover:scale-105 transition duration-200 uppercase tracking-wider text-sm"
+                        className="bg-green-500 text-black font-bold rounded-full py-3 mt-4 hover:scale-105 transition duration-200 uppercase tracking-wider text-sm"
                     >
                         Registrarse
                     </button>

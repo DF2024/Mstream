@@ -36,8 +36,6 @@ const Sidebar = () => {
         }
     };
 
-
-
     return (
         <aside className="w-64 bg-black h-full flex flex-col gap-2 p-2">
             {/* Bloque 1: Navegación Principal */}

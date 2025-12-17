@@ -61,6 +61,9 @@ const PlayerBar = () => {
     // Si no hay canción seleccionada, mostramos el player vacío o nada
     if (!currentSong) return null; 
 
+    // Calculamos el porcentaje (evitando dividir por 0 si no ha cargado)
+    const currentPercentage = duration ? (currentTime / duration) * 100 : 0;
+
     return (
         <div className="h-20 bg-black border-t border-[#282828] px-4 flex items-center justify-between text-white fixed bottom-0 w-full z-50">
             
@@ -125,7 +128,10 @@ const PlayerBar = () => {
                         max={duration || 0}
                         value={currentTime}
                         onChange={handleSeek}
-                        className="w-full h-1 bg-[#4d4d4d] rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:rounded-full"
+                        className="w-full h-1 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:rounded-full"
+                        style={{
+                            background: `linear-gradient(to right, #ffffff ${currentPercentage}%, #4d4d4d ${currentPercentage}%)`
+                        }}
                     />
                     
                     <span>{formatTime(duration)}</span>
@@ -142,7 +148,7 @@ const PlayerBar = () => {
                     step="0.01"
                     value={volume}
                     onChange={(e) => setVolume(e.target.value)}
-                    className="w-24 h-1 bg-[#4d4d4d] rounded-lg cursor-pointer"
+                    className="w-24 h-1 bg-[#4d4d4d] rounded-lg cursor-pointer accent-[#1ed760]"
                 />
             </div>
         </div>

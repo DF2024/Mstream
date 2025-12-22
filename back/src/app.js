@@ -20,4 +20,9 @@ app.use(LoggerMiddleware)
 
 app.use('/api', routes)
 
+app.get('/', (req, res) => {
+  res.send('Bienvenido al API de Spotify Clone');
+});
+
+
 export default app;

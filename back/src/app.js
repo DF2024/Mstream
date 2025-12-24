@@ -21,9 +21,9 @@ app.use(express.json())
 app.use(errorHandler)
 app.use(LoggerMiddleware)
 
-app.use('/api', routes)
+app.use('/', routes)
 
-app.get('/api', (req, res) => {
+app.get('/', (req, res) => {
   res.send('Bienvenido al API de Spotify Clone');
 });
 

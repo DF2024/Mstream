@@ -7,7 +7,7 @@ Spotify Clone – Full Stack App
   
   ⚛️ React
   
-  🎨 CSS / Tailwind (si usas alguno, ajústalo)
+  🎨 CSS / Tailwind 
   
   🎧 Reproductor de audio HTML5
 

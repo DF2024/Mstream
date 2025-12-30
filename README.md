@@ -42,7 +42,7 @@ Prisma (ORM): Abstrae la conexión y consultas a la base de datos PostgreSQL.
   
   🚂 Express
   
-  🔐 JWT (si aplica)
+  🔐 JWT 
   
   📦 Prisma ORM
 

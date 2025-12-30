@@ -119,6 +119,6 @@ VITE_API_URL=https://spotify-production-5def.up.railway.app
 npm run dev
 ```
 
-## 👨‍💻 Desarrollado por [Diego Araya]
+## 👨‍💻 Desarrollado por [Andrés García]
 
 Proyecto de Portafolio - Full Stack Developer
